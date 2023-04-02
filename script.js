@@ -60,7 +60,9 @@ function startPainting() {
 }
 
 sizeButton.addEventListener("click", (event) => {
-    gridSize = (prompt("Enter the size", 16)).toString();
+    gridSize = (prompt("Enter the size (max. 100)", 16)).toString();
+    if (gridSize > 100) gridSize = 100;
+
     removeGrid();
     createGrid();
     startPainting();
