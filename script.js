@@ -1,6 +1,7 @@
-const gridSize = 16;
+let gridSize = 16;
 let isMouseDown = false;
 const gridContainer = document.querySelector(".grid-container");
+const sizeButton = document.querySelector(".btn-size");
 
 // Creates all the required squares of the grid
 function createSquare(gridRow) {
@@ -29,24 +30,42 @@ function checkMouseClick() {
 }
 
 // Creates the grid
-for (let i = 0; i < gridSize; i++) {
-    row = createRow();
-    for (let j = 0; j < gridSize; j++){
-        createSquare(row);
+function createGrid() {
+    for (let i = 0; i < gridSize; i++) {
+        row = createRow();
+        for (let j = 0; j < gridSize; j++){
+            createSquare(row);
+        }
     }
 }
 
-const gridSquares = document.querySelectorAll(".grid-square");
-
-// Container border
-gridContainer.style.width = gridSize * 30 + (gridSize - 2) * 2 + "px";
+// Remove the old grid after resizing
+function removeGrid() {
+    const oldRows = document.querySelectorAll(".grid-row");
+    oldRows.forEach(row => gridContainer.removeChild(row));
+}
 
 // Painting
-gridSquares.forEach(square => square.addEventListener("mousedown", (event) => {
-    event.target.classList.add("square-drawn");
-}));
+function startPainting() {
+    const gridSquares = document.querySelectorAll(".grid-square");
 
-gridSquares.forEach(square => square.addEventListener("mouseenter", (event) => {
-    if (!checkMouseClick()) return;
-    event.target.classList.add("square-drawn");
-}));
+    gridSquares.forEach(square => square.addEventListener("mousedown", (event) => {
+        event.target.classList.add("square-drawn");
+    }));
+
+    gridSquares.forEach(square => square.addEventListener("mouseenter", (event) => {
+        if (!checkMouseClick()) return;
+        event.target.classList.add("square-drawn");
+    }));
+}
+
+sizeButton.addEventListener("click", (event) => {
+    gridSize = (prompt("Enter the size", 16)).toString();
+    removeGrid();
+    createGrid();
+    startPainting();
+});
+
+
+createGrid();
+startPainting();

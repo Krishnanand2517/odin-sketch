@@ -1,15 +1,20 @@
 .grid-container {
     border: 1px solid rgb(81, 81, 81);
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    height: 540px;
+    width: 540px;
 }
 
 .grid-row {
     display: flex;
     flex-direction: row;
+    flex: auto;
 }
 
 .grid-square {
-    width: 30px;
-    height: 30px;
+    flex: auto;
     background-color: coral;
     border: 1px solid rgb(81, 81, 81);
 }
