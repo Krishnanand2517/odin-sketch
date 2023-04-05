@@ -1,8 +1,10 @@
 let gridSize = 16;
 let isMouseDown = false;
+let isRainbowModeOn = false;
 const gridContainer = document.querySelector(".grid-container");
 const sizeButton = document.querySelector(".btn-size");
 const clearButton = document.querySelector(".btn-clear");
+const rainbowButton = document.querySelector(".btn-rainbow");
 
 // Creates all the required squares of the grid
 function createSquare(gridRow) {
@@ -50,14 +52,20 @@ function removeGrid() {
 function startPainting() {
     const gridSquares = document.querySelectorAll(".grid-square");
 
-    gridSquares.forEach(square => square.addEventListener("mousedown", (event) => {
-        event.target.classList.add("square-drawn");
-    }));
+    gridSquares.forEach(square => square.addEventListener("mousedown", paintSquare));
 
-    gridSquares.forEach(square => square.addEventListener("mouseenter", (event) => {
-        if (!checkMouseClick()) return;
-        event.target.classList.add("square-drawn");
-    }));
+    gridSquares.forEach(square => square.addEventListener("mouseenter", paintSquare));
+}
+
+function paintSquare(event) {
+    if (event.type != "mousedown" && !checkMouseClick()) return;
+
+    let drawColor = "#333";
+    if (isRainbowModeOn) {
+        let randomColor = Math.floor(Math.random()*16777215).toString(16);
+        drawColor = "#" + randomColor;
+    }
+    event.target.style.backgroundColor = drawColor;
 }
 
 // Sets up a new grid ready for painting
@@ -78,6 +86,12 @@ sizeButton.addEventListener("click", (event) => {
 // Clear the Grid
 clearButton.addEventListener("click", (event) => {
     setupGrid();
+});
+
+// Rainbow Mode - Toggle
+rainbowButton.addEventListener("click", (event) => {
+    isRainbowModeOn = !isRainbowModeOn;
+    rainbowButton.classList.toggle("btn-pressed");
 });
 
 

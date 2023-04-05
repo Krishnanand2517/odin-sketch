@@ -53,6 +53,10 @@ button:hover {
     cursor: pointer;
 }
 
+.btn-pressed {
+    background-color: coral;
+}
+
 .grid-container {
     border: 1px solid var(--primary-black);
     display: flex;
@@ -72,8 +76,4 @@ button:hover {
     flex: auto;
     background-color: coral;
     border: 1px solid var(--primary-black);
-}
-
-.square-drawn {
-    background-color: black;
 }
