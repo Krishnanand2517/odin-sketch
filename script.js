@@ -2,6 +2,7 @@ let gridSize = 16;
 let isMouseDown = false;
 const gridContainer = document.querySelector(".grid-container");
 const sizeButton = document.querySelector(".btn-size");
+const clearButton = document.querySelector(".btn-clear");
 
 // Creates all the required squares of the grid
 function createSquare(gridRow) {
@@ -59,13 +60,24 @@ function startPainting() {
     }));
 }
 
+// Sets up a new grid ready for painting
+function setupGrid() {
+    removeGrid();
+    createGrid();
+    startPainting();
+}
+
+// Change Size of Grid
 sizeButton.addEventListener("click", (event) => {
     gridSize = (prompt("Enter the size (max. 100)", 16)).toString();
     if (gridSize > 100) gridSize = 100;
 
-    removeGrid();
-    createGrid();
-    startPainting();
+    setupGrid();
+});
+
+// Clear the Grid
+clearButton.addEventListener("click", (event) => {
+    setupGrid();
 });
 
 
