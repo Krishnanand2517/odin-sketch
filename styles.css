@@ -1,5 +1,55 @@
+:root {
+    --primary-black: #333;
+    --primary-font: 'Roboto', sans-serif;
+}
+
+body {
+    color: var(--primary-black);
+    font-family: var(--primary-font);
+    text-align: center;
+}
+
+.title {
+    font-size: 4rem;
+    margin-bottom: 0;
+}
+
+.head-para {
+    font-size: 1.5rem;
+    margin-top: 0;
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+main {
+    display: flex;
+}
+
+main > div {
+    width: 100%;
+    padding: 5px;
+}
+
+main h2 {
+    margin-bottom: 35px;
+}
+
+button {
+    border: none;
+    border-radius: 15px;
+    background-color: var(--primary-black);
+    color: white;
+    font-family: var(--primary-font);
+    font-weight: 600;
+    font-size: 1rem;
+    height: 50px;
+    width: 180px;
+}
+
 .grid-container {
-    border: 1px solid rgb(81, 81, 81);
+    border: 1px solid var(--primary-black);
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -16,7 +66,7 @@
 .grid-square {
     flex: auto;
     background-color: coral;
-    border: 1px solid rgb(81, 81, 81);
+    border: 1px solid var(--primary-black);
 }
 
 .square-drawn {
