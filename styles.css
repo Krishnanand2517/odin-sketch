@@ -74,6 +74,6 @@ button:hover {
 
 .grid-square {
     flex: auto;
-    background-color: coral;
+    /* background-color: coral; */
     border: 1px solid var(--primary-black);
 }

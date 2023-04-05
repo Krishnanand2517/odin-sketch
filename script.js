@@ -1,15 +1,19 @@
 let gridSize = 16;
 let isMouseDown = false;
 let isRainbowModeOn = false;
+let isPencilModeOn = false;
+let currentBgColor = "rgb(255, 128, 82)";
 const gridContainer = document.querySelector(".grid-container");
 const sizeButton = document.querySelector(".btn-size");
 const clearButton = document.querySelector(".btn-clear");
 const rainbowButton = document.querySelector(".btn-rainbow");
+const pencilButton = document.querySelector(".btn-pencil");
 
 // Creates all the required squares of the grid
 function createSquare(gridRow) {
     const square = document.createElement("div");
     square.classList.add("grid-square");
+    square.style.backgroundColor = currentBgColor;
     
     gridRow.appendChild(square);
 }
@@ -57,6 +61,7 @@ function startPainting() {
     gridSquares.forEach(square => square.addEventListener("mouseenter", paintSquare));
 }
 
+// Paint one square
 function paintSquare(event) {
     if (event.type != "mousedown" && !checkMouseClick()) return;
 
@@ -65,6 +70,13 @@ function paintSquare(event) {
         let randomColor = Math.floor(Math.random()*16777215).toString(16);
         drawColor = "#" + randomColor;
     }
+    else if (isPencilModeOn) {
+        const bgColor = event.target.style.backgroundColor;
+        let rgbArray = bgColor.substring(4, bgColor.length-1).replace(/ /g, '').split(',');
+        rgbArray[0] -= 40, rgbArray[1] -= 40, rgbArray[2] -= 40;
+        drawColor = `rgb(${rgbArray[0]}, ${rgbArray[1]}, ${rgbArray[2]})`;
+    }
+
     event.target.style.backgroundColor = drawColor;
 }
 
@@ -92,6 +104,24 @@ clearButton.addEventListener("click", (event) => {
 rainbowButton.addEventListener("click", (event) => {
     isRainbowModeOn = !isRainbowModeOn;
     rainbowButton.classList.toggle("btn-pressed");
+
+    if (isRainbowModeOn && isPencilModeOn) {
+        isPencilModeOn = false;
+        pencilButton.classList.remove("btn-pressed");
+    }
+});
+
+// Pencil Mode - Toggle
+pencilButton.addEventListener("click", (event) => {
+    isPencilModeOn = !isPencilModeOn;
+    pencilButton.classList.toggle("btn-pressed");
+
+    if (isPencilModeOn && isRainbowModeOn) {
+        isRainbowModeOn = false;
+        rainbowButton.classList.remove("btn-pressed");
+    }
+
+    setupGrid();        // Make a fresh grid
 });
 
 
